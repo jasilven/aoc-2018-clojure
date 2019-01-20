@@ -36,16 +36,18 @@
   (filter #(< (distance % origin) (+ r (last %))) nbots))
 
 (defn find-target-grid [x1 y1 z1 x2 y2 z2 grid-size nbots]
-  (->> (for [x (range x1 (inc x2) grid-size)
-             y (range y1 (inc y2) grid-size)
-             z (range z1 (inc z2) grid-size)]
-         (vector [x y z] (count (nbots-in-range [x y z grid-size] nbots))))
-       (reduce #(cond
-                  (> (second %2) (second (first %1))) (vector %2)
-                  (= (second %2) (second (first %1))) (conj %1 %2)
-                  :else %1)
-               (vector [[nil nil nil] 0]))
-       (apply min-key #(distance [0 0 0] (first %)))))
+  (let [futures (doall
+                 (for [x (range x1 (inc x2) grid-size)
+                       y (range y1 (inc y2) grid-size)
+                       z (range z1 (inc z2) grid-size)]
+                   (future (vector [x y z] (count (nbots-in-range [x y z grid-size] nbots))))))]
+    (->> (map deref futures)
+         (reduce #(cond
+                    (> (second %2) (second (first %1))) (vector %2)
+                    (= (second %2) (second (first %1))) (conj %1 %2)
+                    :else %1)
+                 (vector [[nil nil nil] 0]))
+         (apply min-key #(distance [0 0 0] (first %))))))
 
 (defn solve2 [fname]
   (let [nbots (fname->nbots fname)

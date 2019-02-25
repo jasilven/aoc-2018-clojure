@@ -55,7 +55,6 @@
   (solve2 7511 300 300)
   ;; correct answer 235,288,13
   ;; {:x 235, :y 288, :power 147, :size 13}
-  (time (solve1 7511 300 300 24))
   )
 
 (defn -main [& args]

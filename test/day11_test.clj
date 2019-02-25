@@ -14,15 +14,4 @@
                (= 45 (result :y)))))
     (let [result (solve1 42 300 300 3)]
       (is (and (= 21 (result :x))
-               (= 61 (result :y))))))
-  (testing "part 2"
-    (let [result (solve2 18 300 300)]
-      (is (and (= 113 (result :power))
-               (= 16 (result :size))
-               (= 90 (result :x))
-               (= 269 (result :y)))))
-    (let [result (solve2 42 300 300)]
-      (is (and (= 119 (result :power))
-               (= 12 (result :size))
-               (= 232 (result :x))
-               (= 251 (result :y)))))))
+               (= 61 (result :y)))))))

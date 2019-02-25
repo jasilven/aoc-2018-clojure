@@ -53,9 +53,9 @@
          second)))
 
 (comment
-  (time (solve 468 71843))
+  (solve 468 71843)
   ;; correct answer 385820
-  (time (solve 468 (* 100 71843)))
+  (solve 468 (* 100 71843))
   ;; correct answer 3156297594
   )
 

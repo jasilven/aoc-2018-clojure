@@ -3,7 +3,7 @@
             [clojure.set :as set]))
 
 (defn input->xys
-  "convers input to seq of xy xys => ([1 1] [1 6] ...)"
+  "converts input to seq of xy xys => ([1 1] [1 6] ...)"
   [fname]
   (->> (for [line (str/split-lines (slurp fname))]
          (str/split line #", "))
